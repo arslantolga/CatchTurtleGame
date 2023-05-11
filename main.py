@@ -38,22 +38,15 @@ turtle_instance3.goto(-480,260)
 #Position Control Function
 def position_control(x,y):
     x_cor, y_cor = turtle_instance.position()
-    print(f"""
-    x kordinatı = {x_cor}
-    y kordinatı = {y_cor}
-    mouse x kordinatı = {x}
-    mouse y kordinatı = {y}
-    """)
     # Compare mause position and object position
     if (x_cor-20) <= int(x) <= (x_cor+20) and (y_cor-20) <= int(y) <= (y_cor+20):
         global score
         score = score + 1
-        print("Catch")
-    print(score)
 
 #Game Starting Function
 def start_game():
-    game_timer = 5
+    game_timer = 10
+
     while game_timer >= 0:
         x_cor = randint(-200, 200)
         y_cor = randint(-200, 200)
@@ -64,7 +57,7 @@ def start_game():
         turtle_instance.showturtle()
         printing_timer(game_timer)
         printing_menu()
-        time.sleep(1)
+        time.sleep(0.3)
         game_timer -= 1
     printing_timer("Game Over!")
 
@@ -89,6 +82,7 @@ def printing_menu():
     turtle_instance3.clear()
     turtle_instance3.write(message, align="center", font=("Arial", 16, "bold"))
 
+printing_menu()
 turtle_screen.listen()
 turtle_screen.onkey(fun=start_game,key="s")
 turtle_screen.onkey(fun=closing_game,key="q")
