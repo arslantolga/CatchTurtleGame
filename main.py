@@ -2,8 +2,6 @@ import turtle
 import time
 from random import randint
 
-score = 0
-
 #Turtle Screen Definitions
 turtle_screen = turtle.Screen()
 turtle_screen.bgcolor("light blue")
@@ -16,10 +14,6 @@ turtle_instance.shape("turtle")
 turtle_instance.color("green")
 turtle_instance.shapesize(3)
 turtle_instance.penup()
-
-#Turtle mouse click control
-turtle_screen.listen()
-turtle_screen.onclick(fun=score,btn=1,add=None)
 
 #Turtle Object 2 Definitions
 turtle_instance2 = turtle.Turtle()
@@ -45,19 +39,21 @@ def position_control(x,y):
 
 #Game Starting Function
 def start_game():
+    global score
     game_timer = 10
-
+    score = 0
     while game_timer >= 0:
         x_cor = randint(-200, 200)
         y_cor = randint(-200, 200)
         turtle_instance.hideturtle()
         turtle_instance.goto(x_cor, y_cor)
         turtle_screen.listen()
+        turtle_screen.onclick(fun=score, btn=1, add=None)
         turtle_screen.onscreenclick(position_control)
         turtle_instance.showturtle()
         printing_timer(game_timer)
         printing_menu()
-        time.sleep(0.3)
+        time.sleep(1)
         game_timer -= 1
     printing_timer("Game Over!")
 
@@ -83,9 +79,11 @@ def printing_menu():
     turtle_instance3.write(message, align="center", font=("Arial", 16, "bold"))
 
 printing_menu()
+
 turtle_screen.listen()
 turtle_screen.onkey(fun=start_game,key="s")
 turtle_screen.onkey(fun=closing_game,key="q")
+
 
 turtle_screen.mainloop()
 
