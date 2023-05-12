@@ -2,6 +2,8 @@ import turtle
 import time
 from random import randint
 
+baslangic_zamani = time.time()
+
 #Turtle Screen Definitions
 turtle_screen = turtle.Screen()
 turtle_screen.bgcolor("light blue")
@@ -40,9 +42,8 @@ def position_control(x,y):
 #Game Starting Function
 def start_game():
     global score
-    game_timer = 10
     score = 0
-    while game_timer >= 0:
+    while time.time() - baslangic_zamani < 20:
         x_cor = randint(-200, 200)
         y_cor = randint(-200, 200)
         turtle_instance.hideturtle()
@@ -51,10 +52,9 @@ def start_game():
         turtle_screen.onclick(fun=score, btn=1, add=None)
         turtle_screen.onscreenclick(position_control)
         turtle_instance.showturtle()
-        printing_timer(game_timer)
+        printing_timer()
         printing_menu()
-        time.sleep(1)
-        game_timer -= 1
+        time.sleep(0.3)
     printing_timer("Game Over!")
 
 #Game Closing Function
@@ -62,10 +62,10 @@ def closing_game():
     turtle_screen.bye()
 
 #Game Printing Function
-def printing_timer(game_timer):
+def printing_timer():
     message = f"""
             Score : {score}
-            Time : {game_timer}
+            Time : {int(baslangic_zamani-time.time())+20}
             """
     turtle_instance2.clear()
     turtle_instance2.write(message, align="center", font=("Arial", 24, "bold"))
